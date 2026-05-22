@@ -1,0 +1,289 @@
+/* --- FULL SCREEN & ZOOM OUT FIX --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+#root {
+    width: 100%;
+    max-width: 100% !important;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- MAIN CONTAINER BACKGROUND --- */
+.login-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(-45deg, #4f46e5, #7c3aed, #2563eb, #06b6d4);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    font-family: 'Poppins', sans-serif;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Glassmorphism Card */
+.login-container {
+    width: 500px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    color: #fff;
+    transform: translateY(30px);
+    opacity: 0;
+    animation: fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes fadeInUp {
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 30px;
+}
+
+/* Input Fields Group */
+.input-group {
+    position: relative;
+    margin-bottom: 22px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 45px 14px 45px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    outline: none;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+/* Left Icons alignment */
+.field-icon.left-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+}
+
+/* Right Eye Toggle Icon alignment */
+.password-toggle-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s ease;
+    z-index: 10;
+    user-select: none;
+}
+
+.password-toggle-icon:hover {
+    color: #fff;
+}
+
+/* Floating Label Engine */
+.input-group label {
+    position: absolute;
+    left: 45px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 15px;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.input-group input:focus,
+.input-group input:valid {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.input-group input:focus ~ .left-icon,
+.input-group input:valid ~ .left-icon {
+    color: #fff;
+}
+
+.input-group input:focus ~ label,
+.input-group input:valid ~ label {
+    top: 0;
+    left: 12px;
+    font-size: 12px;
+    color: #fff;
+    background: #7c3aed;
+    padding: 2px 8px;
+    border-radius: 6px;
+    z-index: 4;
+}
+
+/* Form Footer Links */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.remember-me input {
+    margin-right: 8px;
+    accent-color: #06b6d4;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.forgot-pass {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.forgot-pass:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* Action Button */
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: #fff;
+    border: none;
+    border-radius: 12px;
+    color: #1e1b4b;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.submit-btn:hover {
+    background: #06b6d4;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(6, 182, 212, 0.45);
+}
+
+/* Custom Horizontal Divider */
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 24px 0;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.divider::before { margin-right: 1em; }
+.divider::after { margin-left: 1em; }
+
+/* Social Block Buttons */
+.social-login {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.google-btn { background-color: #ffffff; color: #1f2937; }
+.google-btn:hover { background-color: #f9fafb; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
+
+.fb-btn { background-color: #1877f2; color: #ffffff; }
+.fb-btn:hover { background-color: #166fe5; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(24,119,242,0.35); }
+
+/* Switch Interface Trigger Footer Link */
+.signup-link {
+    text-align: center;
+    margin-top: 25px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+}
+
+.signup-link a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
